@@ -17,6 +17,9 @@
 </head>
 <body>
 
+<button id="alertButton" style="display: none;"></button>
+
+
 <script>
     //get the authenticated user's ID
     var authUserId = {{ auth()->id() }};

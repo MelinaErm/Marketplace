@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-    //Pusher.logToConsole = true;
-
-    var pusher = new Pusher('4475f46df53f83682842', {
+    //initialize Pusher
+    var pusher = new Pusher('615d0825e7e5e8e7af1f', {
         cluster: 'eu',
         encrypted: true
     });
@@ -9,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var channel = pusher.subscribe('messages');
 
     channel.bind('NewMessage', function(data) {
+        //log data for debugging
         console.log('Received new message:', data);
 
         //check if the authenticated user is the receiver
@@ -18,13 +18,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
             //check if the user is not on the /messages page
             if (window.location.pathname !== '/messages') {
-                //play the alert sound
-                var alertSound = document.getElementById('alertSound');
-                alertSound.play();
+                //play the alert sound 
+                document.getElementById('alertButton').click(); 
 
-                //show alert
-                alert('New message from ' + senderName + ': ' + messageContent); 
+                //show an alert message
+                alert('New message from ' + senderName + ': ' + messageContent);
             }
         }
     });
+
+    //function to play the alert sound
+    function playAlertSound() {
+        var alertSound = document.getElementById('alertSound');
+        alertSound.play();
+    }
+
+    //bind the playAlertSound function to a button click
+    document.getElementById('alertButton').addEventListener('click', playAlertSound);
 });
